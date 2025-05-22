@@ -1,5 +1,405 @@
 ninja: Entering directory `/Users/tranluong/Documents/java_app/SecFfmpeg/app/.cxx/Debug/5w43433w/arm64-v8a'
-[1/2] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_mux_init.c.o
+[1/16] Building C object CMakeFiles/secffmpeg.dir/fftools/objpool.c.o
+[2/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_hw.c.o
+[3/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_enc.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_enc.c:155:20: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  155 |         av_strlcpy(encoder_string, LIBAVCODEC_IDENT " ", encoder_string_len);
+      |                    ^~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavutil/avstring.h:100:25: note: passing argument to parameter 'dst' here
+  100 | size_t av_strlcpy(char *dst, const char *src, size_t size);
+      |                         ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_enc.c:157:20: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  157 |         av_strlcpy(encoder_string, "Lavc ", encoder_string_len);
+      |                    ^~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavutil/avstring.h:100:25: note: passing argument to parameter 'dst' here
+  100 | size_t av_strlcpy(char *dst, const char *src, size_t size);
+      |                         ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_enc.c:158:16: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  158 |     av_strlcat(encoder_string, cname, encoder_string_len);
+      |                ^~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavutil/avstring.h:118:25: note: passing argument to parameter 'dst' here
+  118 | size_t av_strlcat(char *dst, const char *src, size_t size);
+      |                         ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_enc.c:159:49: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  159 |     av_dict_set(&ost->st->metadata, "encoder",  encoder_string,
+      |                                                 ^~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavutil/dict.h:165:65: note: passing argument to parameter 'value' here
+  165 | int av_dict_set(AVDictionary **pm, const char *key, const char *value, int flags);
+      |                                                                 ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_enc.c:480:17: warning: 8 enumeration values not handled in switch: 'ENC_STATS_DTS', 'ENC_STATS_DTS_TIME', 'ENC_STATS_SAMPLE_NUM'... [-Wswitch]
+  480 |         switch (c->type) {
+      |                 ^~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_enc.c:506:56: warning: passing 'char *' to parameter of type 'const unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  506 |             case ENC_STATS_KEYFRAME:    avio_write(io, (pkt->flags & AV_PKT_FLAG_KEY) ?
+      |                                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  507 |                                                        "K" : "N", 1);                               continue;
+      |                                                        ~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavformat/avio.h:416:54: note: passing argument to parameter 'buf' here
+  416 | void avio_write(AVIOContext *s, const unsigned char *buf, int size);
+      |                                                      ^
+6 warnings generated.
+[4/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_mux.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_mux.c:725:18: warning: passing 'uint8_t[16]' (aka 'unsigned char[16]') to parameter of type 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  725 |         snprintf(overhead, sizeof(overhead), "%f%%",
+      |                  ^~~~~~~~
+/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/bits/fortify/stdio.h:77:75: note: passing argument to parameter 'dest' here
+   77 | int snprintf(char* const __BIONIC_COMPLICATED_NULLNESS __pass_object_size dest, size_t size, const char* _Nonnull format, ...)
+      |                                                                           ^
+1 warning generated.
+[5/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg.c:679:35: warning: passing 'char *' to parameter of type 'const unsigned char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  679 |         avio_write(progress_avio, buf_script.str,
+      |                                   ^~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavformat/avio.h:416:54: note: passing argument to parameter 'buf' here
+  416 | void avio_write(AVIOContext *s, const unsigned char *buf, int size);
+      |                                                      ^
+1 warning generated.
+[6/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_opt.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_opt.c:163:20: warning: returning 'uint8_t *' (aka 'unsigned char *') from a function with result type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  163 |             return sol->opt[i].u.str;
+      |                    ^~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_opt.c:201:38: warning: assigning to 'const char *' from 'uint8_t *const' (aka 'unsigned char *const') converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  201 |         case OPT_TYPE_STRING: optval = so->u.str;                                             break;
+      |                                      ^ ~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_opt.c:227:1: warning: assigning to 'const char *' from 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  227 | OPT_MATCH_PER_STREAM(str,   const char *, OPT_TYPE_STRING, str);
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_opt.c:224:14: note: expanded from macro 'OPT_MATCH_PER_STREAM'
+  224 |         *out = sol->opt[ret - 1].u.m;                                                   \
+      |              ^ ~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_opt.c:348:89: warning: operator '?:' has lower precedence than '+'; '+' will be evaluated first [-Wparentheses]
+  348 |                 abs_start_seek = is->start_time + (ifile->start_time != AV_NOPTS_VALUE) ? ifile->start_time : 0;
+      |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_opt.c:348:89: note: place parentheses around the '+' expression to silence this warning
+  348 |                 abs_start_seek = is->start_time + (ifile->start_time != AV_NOPTS_VALUE) ? ifile->start_time : 0;
+      |                                                                                         ^
+      |                                  (                                                     )
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_opt.c:348:89: note: place parentheses around the '?:' expression to evaluate it first
+  348 |                 abs_start_seek = is->start_time + (ifile->start_time != AV_NOPTS_VALUE) ? ifile->start_time : 0;
+      |                                                                                         ^                      
+      |                                                   (                                                            )
+4 warnings generated.
+[7/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_dec.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_dec.c:1180:17: warning: enumeration value 'VIEW_SPECIFIER_TYPE_NONE' not handled in switch [-Wswitch]
+ 1180 |         switch (vs->type) {
+      |                 ^~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_dec.c:1737:21: warning: initializing 'const char *' with an expression of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1737 |         const char *name = o->codec_names.opt[o->codec_names.nb_opt - 1].u.str;
+      |                     ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_dec.c:1755:16: warning: assigning to 'uint8_t *' (aka 'unsigned char *') from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1755 |     opts->name = av_strdup(name);
+      |                ^ ~~~~~~~~~~~~~~~
+3 warnings generated.
+[8/16] Building C object CMakeFiles/secffmpeg.dir/fftools/cmdutils.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:149:18: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+  149 |     while (child = av_opt_child_class_iterate(avclass, &iter))
+      |            ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:149:18: note: place parentheses around the assignment to silence this warning
+  149 |     while (child = av_opt_child_class_iterate(avclass, &iter))
+      |                  ^                                           
+      |            (                                                 )
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:149:18: note: use '==' to turn this assignment into an equality comparison
+  149 |     while (child = av_opt_child_class_iterate(avclass, &iter))
+      |                  ^
+      |                  ==
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:516:12: warning: assigning to 'const unsigned char *' from 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  516 |     for (p = a; *p; p++)
+      |            ^ ~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:525:12: warning: assigning to 'const unsigned char *' from 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+  525 |     for (p = a; *p; p++) {
+      |            ^ ~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:1306:21: warning: 4 enumeration values not handled in switch: 'AVMEDIA_TYPE_DATA', 'AVMEDIA_TYPE_SUBTITLE', 'AVMEDIA_TYPE_ATTACHMENT'... [-Wswitch]
+ 1306 |             switch (par->codec_type) {
+      |                     ^~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:1359:13: warning: 4 enumeration values not handled in switch: 'AVMEDIA_TYPE_UNKNOWN', 'AVMEDIA_TYPE_DATA', 'AVMEDIA_TYPE_ATTACHMENT'... [-Wswitch]
+ 1359 |     switch (st->codecpar->codec_type) {
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:1374:14: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+ 1374 |     while (t = av_dict_iterate(opts, t)) {
+      |            ~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:1374:14: note: place parentheses around the assignment to silence this warning
+ 1374 |     while (t = av_dict_iterate(opts, t)) {
+      |              ^                         
+      |            (                           )
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.c:1374:14: note: use '==' to turn this assignment into an equality comparison
+ 1374 |     while (t = av_dict_iterate(opts, t)) {
+      |              ^
+      |              ==
+6 warnings generated.
+[9/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_demux.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:318:13: warning: 5 enumeration values not handled in switch: 'AVMEDIA_TYPE_UNKNOWN', 'AVMEDIA_TYPE_DATA', 'AVMEDIA_TYPE_SUBTITLE'... [-Wswitch]
+  318 |     switch (par->codec_type) {
+      |             ^~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1084:16: warning: assigning to 'uint8_t *' (aka 'unsigned char *') from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1084 |     opts->name = av_strdup(ds->dec_name);
+      |                ^ ~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1125:40: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+ 1125 |                 for (int j = 0; config = avcodec_get_hw_config(c, j); j++) {
+      |                                 ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1125:40: note: place parentheses around the assignment to silence this warning
+ 1125 |                 for (int j = 0; config = avcodec_get_hw_config(c, j); j++) {
+      |                                        ^                            
+      |                                 (                                   )
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1125:40: note: use '==' to turn this assignment into an equality comparison
+ 1125 |                 for (int j = 0; config = avcodec_get_hw_config(c, j); j++) {
+      |                                        ^
+      |                                        ==
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1690:58: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1690 |             av_dict_set(&o->g->format_opts, "ch_layout", o->audio_ch_layouts.opt[o->audio_ch_layouts.nb_opt - 1].u.str, 0);
+      |                                                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavutil/dict.h:165:65: note: passing argument to parameter 'value' here
+  165 | int av_dict_set(AVDictionary **pm, const char *key, const char *value, int flags);
+      |                                                                 ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1701:25: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1701 |                         o->frame_rates.opt[o->frame_rates.nb_opt - 1].u.str, 0);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavutil/dict.h:165:65: note: passing argument to parameter 'value' here
+  165 | int av_dict_set(AVDictionary **pm, const char *key, const char *value, int flags);
+      |                                                                 ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1705:55: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1705 |         av_dict_set(&o->g->format_opts, "video_size", o->frame_sizes.opt[o->frame_sizes.nb_opt - 1].u.str, 0);
+      |                                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavutil/dict.h:165:65: note: passing argument to parameter 'value' here
+  165 | int av_dict_set(AVDictionary **pm, const char *key, const char *value, int flags);
+      |                                                                 ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1708:57: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1708 |         av_dict_set(&o->g->format_opts, "pixel_format", o->frame_pix_fmts.opt[o->frame_pix_fmts.nb_opt - 1].u.str, 0);
+      |                                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/mmfw_include/ffmpeg/arm64-v8a/libavutil/dict.h:165:65: note: passing argument to parameter 'value' here
+  165 | int av_dict_set(AVDictionary **pm, const char *key, const char *value, int flags);
+      |                                                                 ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1909:44: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1909 |                 ret = dump_attachment(ist, o->dump_attachment.opt[i].u.str);
+      |                                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_demux.c:1541:58: note: passing argument to parameter 'filename' here
+ 1541 | static int dump_attachment(InputStream *ist, const char *filename)
+      |                                                          ^
+8 warnings generated.
+[10/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_sched.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:640:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  640 |     ret = GROW_ARRAY(sch->mux, sch->nb_mux);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:666:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  666 |     ret = GROW_ARRAY(mux->streams, mux->nb_streams);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:695:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  695 |     ret = GROW_ARRAY(sch->demux, sch->nb_demux);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:723:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  723 |     ret = GROW_ARRAY(d->streams, d->nb_streams);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:735:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  735 |     ret = GROW_ARRAY(dec->outputs, dec->nb_outputs);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:755:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  755 |     ret = GROW_ARRAY(sch->dec, sch->nb_dec);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:799:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  799 |     ret = GROW_ARRAY(sch->enc, sch->nb_enc);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:837:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  837 |     ret = GROW_ARRAY(sch->filters, sch->nb_filters);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:876:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  876 |     ret = GROW_ARRAY(sch->sq_enc, sch->nb_sq_enc);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:909:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  909 |     ret = GROW_ARRAY(sq->enc_idx, sq->nb_enc_idx);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:939:15: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  939 |         ret = GROW_ARRAY(ds->dst, ds->nb_dst);
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:984:15: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  984 |         ret = GROW_ARRAY(o->dst, o->nb_dst);
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:1063:15: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+ 1063 |         ret = GROW_ARRAY(enc->dst, enc->nb_dst);
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_sched.c:1229:11: warning: passing 'unsigned int *' to parameter of type 'int *' converts between pointers to integer types with different sign [-Wpointer-sign]
+ 1229 |     ret = GROW_ARRAY(ms->sub_heartbeat_dst, ms->nb_sub_heartbeat_dst);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:537:48: note: expanded from macro 'GROW_ARRAY'
+  537 |     grow_array((void**)&array, sizeof(*array), &nb_elems, nb_elems + 1)
+      |                                                ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/cmdutils.h:521:50: note: passing argument to parameter 'size' here
+  521 | int grow_array(void **array, int elem_size, int *size, int new_size);
+      |                                                  ^
+14 warnings generated.
+[11/16] Building C object CMakeFiles/secffmpeg.dir/fftools/thread_queue.c.o
+[12/16] Building C object CMakeFiles/secffmpeg.dir/fftools/sync_queue.c.o
+[13/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_filter.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:362:18: warning: assigning to 'int8_t *' (aka 'signed char *') from 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+  362 |     dst          = frame->data    [0];
+      |                  ^ ~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:365:29: warning: passing 'int8_t *' (aka 'signed char *') to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+  365 |         sub2video_copy_rect(dst, dst_linesize, frame->width, frame->height, sub->rects[i]);
+      |                             ^~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:286:42: note: passing argument to parameter 'dst' here
+  286 | static void sub2video_copy_rect(uint8_t *dst, int dst_linesize, int w, int h,
+      |                                          ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:831:13: warning: 5 enumeration values not handled in switch: 'AVMEDIA_TYPE_UNKNOWN', 'AVMEDIA_TYPE_DATA', 'AVMEDIA_TYPE_SUBTITLE'... [-Wswitch]
+  831 |     switch (ofilter->type) {
+      |             ^~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1122:24: warning: assigning to 'uint8_t *' (aka 'unsigned char *') from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1122 |         ifp->linklabel = cur->name;
+      |                        ^ ~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1135:24: warning: assigning to 'uint8_t *' (aka 'unsigned char *') from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1135 |         ifilter->name  = describe_filter_link(fg, cur, 1);
+      |                        ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1152:28: warning: assigning to 'uint8_t *' (aka 'unsigned char *') from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1152 |         ofilter->linklabel = cur->name;
+      |                            ^ ~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1155:28: warning: assigning to 'uint8_t *' (aka 'unsigned char *') from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1155 |         ofilter->name      = describe_filter_link(fg, cur, 0);
+      |                            ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1252:36: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1252 |     if (ifp->linklabel && !strncmp(ifp->linklabel, "dec:", 4)) {
+      |                                    ^~~~~~~~~~~~~~
+/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/string.h:173:34: note: passing argument to parameter '__lhs' here
+  173 | int strncmp(const char* _Nonnull __lhs, const char* _Nonnull __rhs, size_t __n) __attribute_pure__;
+      |                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1256:26: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1256 |         dec_idx = strtol(ifp->linklabel + 4, &p, 0);
+      |                          ^~~~~~~~~~~~~~~~~~
+/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/stdlib.h:79:34: note: passing argument to parameter '__s' here
+   79 | long strtol(const char* _Nonnull __s, char* _Nullable * _Nullable __end_ptr, int __base);
+      |                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1292:29: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1292 |                     !strcmp(ofilter->linklabel, ifp->linklabel)) {
+      |                             ^~~~~~~~~~~~~~~~~~
+/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/string.h:111:33: note: passing argument to parameter '__lhs' here
+  111 | int strcmp(const char* _Nonnull __lhs, const char* _Nonnull __rhs) __attribute_pure__;
+      |                                 ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1292:49: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1292 |                     !strcmp(ofilter->linklabel, ifp->linklabel)) {
+      |                                                 ^~~~~~~~~~~~~~
+/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/string.h:111:61: note: passing argument to parameter '__rhs' here
+  111 | int strcmp(const char* _Nonnull __lhs, const char* _Nonnull __rhs) __attribute_pure__;
+      |                                                             ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:1307:27: warning: passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
+ 1307 |         file_idx = strtol(ifp->linklabel, &p, 0);
+      |                           ^~~~~~~~~~~~~~
+/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/stdlib.h:79:34: note: passing argument to parameter '__s' here
+   79 | long strtol(const char* _Nonnull __s, char* _Nullable * _Nullable __end_ptr, int __base);
+      |                                  ^
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:2781:13: warning: 5 enumeration values not handled in switch: 'AVMEDIA_TYPE_UNKNOWN', 'AVMEDIA_TYPE_DATA', 'AVMEDIA_TYPE_SUBTITLE'... [-Wswitch]
+ 2781 |     switch (ifp->type) {
+      |             ^~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:2798:12: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+ 2798 |     if (sd = av_frame_get_side_data(frame, AV_FRAME_DATA_DISPLAYMATRIX)) {
+      |         ~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:2798:12: note: place parentheses around the assignment to silence this warning
+ 2798 |     if (sd = av_frame_get_side_data(frame, AV_FRAME_DATA_DISPLAYMATRIX)) {
+      |            ^                                                           
+      |         (                                                              )
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_filter.c:2798:12: note: use '==' to turn this assignment into an equality comparison
+ 2798 |     if (sd = av_frame_get_side_data(frame, AV_FRAME_DATA_DISPLAYMATRIX)) {
+      |            ^
+      |            ==
+14 warnings generated.
+[14/16] Building C object CMakeFiles/secffmpeg.dir/fftools/opt_common.c.o
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/opt_common.c:973:22: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+  973 |     for (i = 0; name = av_get_known_color_name(i, &rgb); i++)
+      |                 ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/opt_common.c:973:22: note: place parentheses around the assignment to silence this warning
+  973 |     for (i = 0; name = av_get_known_color_name(i, &rgb); i++)
+      |                      ^                                 
+      |                 (                                      )
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/opt_common.c:973:22: note: use '==' to turn this assignment into an equality comparison
+  973 |     for (i = 0; name = av_get_known_color_name(i, &rgb); i++)
+      |                      ^
+      |                      ==
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/opt_common.c:1035:22: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+ 1035 |     while (ch_layout = av_channel_layout_standard(&iter)) {
+      |            ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/opt_common.c:1035:22: note: place parentheses around the assignment to silence this warning
+ 1035 |     while (ch_layout = av_channel_layout_standard(&iter)) {
+      |                      ^                                  
+      |            (                                            )
+/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/opt_common.c:1035:22: note: use '==' to turn this assignment into an equality comparison
+ 1035 |     while (ch_layout = av_channel_layout_standard(&iter)) {
+      |                      ^
+      |                      ==
+2 warnings generated.
+[15/16] Building C object CMakeFiles/secffmpeg.dir/fftools/ffmpeg_mux_init.c.o
 /Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/fftools/ffmpeg_mux_init.c:297:24: warning: assigning to 'uint8_t *' (aka 'unsigned char *') from 'char *' converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
   297 |             c->str     = val;
       |                        ^ ~~~
@@ -143,4 +543,4 @@ ninja: Entering directory `/Users/tranluong/Documents/java_app/SecFfmpeg/app/.cx
    79 | long strtol(const char* _Nonnull __s, char* _Nullable * _Nullable __end_ptr, int __base);
       |                                  ^
 19 warnings generated.
-[2/2] Linking C shared library /Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/output/arm64-v8a/libsecffmpeg.so
+[16/16] Linking C shared library /Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp/output/arm64-v8a/libsecffmpeg.so

@@ -37,13 +37,17 @@
 #include <io.h>
 #endif
 #if HAVE_UNISTD_H
+
 #include <unistd.h>
+
 #endif
 
 #if HAVE_SYS_RESOURCE_H
+
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/resource.h>
+
 #elif HAVE_GETPROCESSTIMES
 #include <windows.h>
 #endif
@@ -56,14 +60,18 @@
 #endif
 
 #if HAVE_SYS_SELECT_H
+
 #include <sys/select.h>
+
 #endif
 
 #if HAVE_TERMIOS_H
+
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <sys/time.h>
 #include <termios.h>
+
 #elif HAVE_KBHIT
 #include <conio.h>
 #endif
@@ -94,6 +102,7 @@ typedef struct BenchmarkTimeStamps {
 } BenchmarkTimeStamps;
 
 static BenchmarkTimeStamps get_benchmark_time_stamps(void);
+
 static int64_t getmaxrss(void);
 
 atomic_uint nb_output_dumped = 0;
@@ -101,17 +110,17 @@ atomic_uint nb_output_dumped = 0;
 static BenchmarkTimeStamps current_time;
 AVIOContext *progress_avio = NULL;
 
-InputFile   **input_files   = NULL;
-int        nb_input_files   = 0;
+InputFile **input_files = NULL;
+int nb_input_files = 0;
 
-OutputFile   **output_files   = NULL;
-int         nb_output_files   = 0;
+OutputFile **output_files = NULL;
+int nb_output_files = 0;
 
 FilterGraph **filtergraphs;
-int        nb_filtergraphs;
+int nb_filtergraphs;
 
-Decoder     **decoders;
-int        nb_decoders;
+Decoder **decoders;
+int nb_decoders;
 
 #if HAVE_TERMIOS_H
 
@@ -120,16 +129,14 @@ static struct termios oldtty;
 static int restore_tty;
 #endif
 
-static void term_exit_sigsafe(void)
-{
+static void term_exit_sigsafe(void) {
 #if HAVE_TERMIOS_H
-    if(restore_tty)
-        tcsetattr (0, TCSANOW, &oldtty);
+    if (restore_tty)
+        tcsetattr(0, TCSANOW, &oldtty);
 #endif
 }
 
-void term_exit(void)
-{
+void term_exit(void) {
     av_log(NULL, AV_LOG_QUIET, "%s", "");
     term_exit_sigsafe();
 }
@@ -141,13 +148,12 @@ static volatile int ffmpeg_exited = 0;
 static int64_t copy_ts_first_pts = AV_NOPTS_VALUE;
 
 static void
-sigterm_handler(int sig)
-{
+sigterm_handler(int sig) {
     int ret;
     received_sigterm = sig;
     received_nb_signals++;
     term_exit_sigsafe();
-    if(received_nb_signals > 3) {
+    if (received_nb_signals > 3) {
         ret = write(2/*STDERR_FILENO*/, "Received > 3 system signals, hard exiting\n",
                     strlen("Received > 3 system signals, hard exiting\n"));
         if (ret < 0) { /* Do nothing */ };
@@ -198,8 +204,7 @@ static BOOL WINAPI CtrlHandler(DWORD fdwCtrlType)
     signal(sig, func)
 #endif
 
-void term_init(void)
-{
+void term_init(void) {
 #if defined __linux__
     struct sigaction action = {0};
     action.sa_handler = sigterm_handler;
@@ -214,26 +219,26 @@ void term_init(void)
 #if HAVE_TERMIOS_H
     if (stdin_interaction) {
         struct termios tty;
-        if (tcgetattr (0, &tty) == 0) {
+        if (tcgetattr(0, &tty) == 0) {
             oldtty = tty;
             restore_tty = 1;
 
-            tty.c_iflag &= ~(IGNBRK|BRKINT|PARMRK|ISTRIP
-                             |INLCR|IGNCR|ICRNL|IXON);
+            tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP
+                             | INLCR | IGNCR | ICRNL | IXON);
             tty.c_oflag |= OPOST;
-            tty.c_lflag &= ~(ECHO|ECHONL|ICANON|IEXTEN);
-            tty.c_cflag &= ~(CSIZE|PARENB);
+            tty.c_lflag &= ~(ECHO | ECHONL | ICANON | IEXTEN);
+            tty.c_cflag &= ~(CSIZE | PARENB);
             tty.c_cflag |= CS8;
             tty.c_cc[VMIN] = 1;
             tty.c_cc[VTIME] = 0;
 
-            tcsetattr (0, TCSANOW, &tty);
+            tcsetattr(0, TCSANOW, &tty);
         }
         SIGNAL(SIGQUIT, sigterm_handler); /* Quit (POSIX).  */
     }
 #endif
 
-    SIGNAL(SIGINT , sigterm_handler); /* Interrupt (ANSI).    */
+    SIGNAL(SIGINT, sigterm_handler); /* Interrupt (ANSI).    */
     SIGNAL(SIGTERM, sigterm_handler); /* Termination (ANSI).  */
 #ifdef SIGXCPU
     SIGNAL(SIGXCPU, sigterm_handler);
@@ -247,8 +252,7 @@ void term_init(void)
 }
 
 /* read a key without blocking */
-static int read_key(void)
-{
+static int read_key(void) {
     unsigned char ch;
 #if HAVE_TERMIOS_H
     int n = 1;
@@ -299,15 +303,13 @@ static int read_key(void)
     return -1;
 }
 
-static int decode_interrupt_cb(void *ctx)
-{
+static int decode_interrupt_cb(void *ctx) {
     return received_nb_signals > atomic_load(&transcode_init_done);
 }
 
-const AVIOInterruptCB int_cb = { decode_interrupt_cb, NULL };
+const AVIOInterruptCB int_cb = {decode_interrupt_cb, NULL};
 
-static void ffmpeg_cleanup(int ret)
-{
+static void ffmpeg_cleanup(int ret) {
     if (do_benchmark) {
         int64_t maxrss = getmaxrss() / 1024;
         av_log(NULL, AV_LOG_INFO, "bench: maxrss=%"PRId64"KiB\n", maxrss);
@@ -357,10 +359,9 @@ static void ffmpeg_cleanup(int ret)
     ffmpeg_exited = 1;
 }
 
-OutputStream *ost_iter(OutputStream *prev)
-{
-    int of_idx  = prev ? prev->file->index : 0;
-    int ost_idx = prev ? prev->index + 1  : 0;
+OutputStream *ost_iter(OutputStream *prev) {
+    int of_idx = prev ? prev->file->index : 0;
+    int ost_idx = prev ? prev->index + 1 : 0;
 
     for (; of_idx < nb_output_files; of_idx++) {
         OutputFile *of = output_files[of_idx];
@@ -373,10 +374,9 @@ OutputStream *ost_iter(OutputStream *prev)
     return NULL;
 }
 
-InputStream *ist_iter(InputStream *prev)
-{
-    int if_idx  = prev ? prev->file->index : 0;
-    int ist_idx = prev ? prev->index + 1  : 0;
+InputStream *ist_iter(InputStream *prev) {
+    int if_idx = prev ? prev->file->index : 0;
+    int ist_idx = prev ? prev->index + 1 : 0;
 
     for (; if_idx < nb_input_files; if_idx++) {
         InputFile *f = input_files[if_idx];
@@ -389,17 +389,15 @@ InputStream *ist_iter(InputStream *prev)
     return NULL;
 }
 
-static void frame_data_free(void *opaque, uint8_t *data)
-{
-    FrameData *fd = (FrameData *)data;
+static void frame_data_free(void *opaque, uint8_t *data) {
+    FrameData *fd = (FrameData *) data;
 
     avcodec_parameters_free(&fd->par_enc);
 
     av_free(data);
 }
 
-static int frame_data_ensure(AVBufferRef **dst, int writable)
-{
+static int frame_data_ensure(AVBufferRef **dst, int writable) {
     AVBufferRef *src = *dst;
 
     if (!src || (writable && !av_buffer_is_writable(src))) {
@@ -409,7 +407,7 @@ static int frame_data_ensure(AVBufferRef **dst, int writable)
         if (!fd)
             return AVERROR(ENOMEM);
 
-        *dst = av_buffer_create((uint8_t *)fd, sizeof(*fd),
+        *dst = av_buffer_create((uint8_t *) fd, sizeof(*fd),
                                 frame_data_free, NULL, 0);
         if (!*dst) {
             av_buffer_unref(&src);
@@ -418,7 +416,7 @@ static int frame_data_ensure(AVBufferRef **dst, int writable)
         }
 
         if (src) {
-            const FrameData *fd_src = (const FrameData *)src->data;
+            const FrameData *fd_src = (const FrameData *) src->data;
 
             memcpy(fd, fd_src, sizeof(*fd));
             fd->par_enc = NULL;
@@ -440,7 +438,7 @@ static int frame_data_ensure(AVBufferRef **dst, int writable)
             av_buffer_unref(&src);
         } else {
             fd->dec.frame_num = UINT64_MAX;
-            fd->dec.pts       = AV_NOPTS_VALUE;
+            fd->dec.pts = AV_NOPTS_VALUE;
 
             for (unsigned i = 0; i < FF_ARRAY_ELEMS(fd->wallclock); i++)
                 fd->wallclock[i] = INT64_MIN;
@@ -450,38 +448,33 @@ static int frame_data_ensure(AVBufferRef **dst, int writable)
     return 0;
 }
 
-FrameData *frame_data(AVFrame *frame)
-{
+FrameData *frame_data(AVFrame *frame) {
     int ret = frame_data_ensure(&frame->opaque_ref, 1);
-    return ret < 0 ? NULL : (FrameData*)frame->opaque_ref->data;
+    return ret < 0 ? NULL : (FrameData *) frame->opaque_ref->data;
 }
 
-const FrameData *frame_data_c(AVFrame *frame)
-{
+const FrameData *frame_data_c(AVFrame *frame) {
     int ret = frame_data_ensure(&frame->opaque_ref, 0);
-    return ret < 0 ? NULL : (const FrameData*)frame->opaque_ref->data;
+    return ret < 0 ? NULL : (const FrameData *) frame->opaque_ref->data;
 }
 
-FrameData *packet_data(AVPacket *pkt)
-{
+FrameData *packet_data(AVPacket *pkt) {
     int ret = frame_data_ensure(&pkt->opaque_ref, 1);
-    return ret < 0 ? NULL : (FrameData*)pkt->opaque_ref->data;
+    return ret < 0 ? NULL : (FrameData *) pkt->opaque_ref->data;
 }
 
-const FrameData *packet_data_c(AVPacket *pkt)
-{
+const FrameData *packet_data_c(AVPacket *pkt) {
     int ret = frame_data_ensure(&pkt->opaque_ref, 0);
-    return ret < 0 ? NULL : (const FrameData*)pkt->opaque_ref->data;
+    return ret < 0 ? NULL : (const FrameData *) pkt->opaque_ref->data;
 }
 
 int check_avoptions_used(const AVDictionary *opts, const AVDictionary *opts_used,
-                         void *logctx, int decode)
-{
-    const AVClass  *avclass = avcodec_get_class();
+                         void *logctx, int decode) {
+    const AVClass *avclass = avcodec_get_class();
     const AVClass *fclass = avformat_get_class();
 
     const int flag = decode ? AV_OPT_FLAG_DECODING_PARAM :
-                              AV_OPT_FLAG_ENCODING_PARAM;
+                     AV_OPT_FLAG_ENCODING_PARAM;
     const AVDictionaryEntry *e = NULL;
 
     while ((e = av_dict_iterate(opts, e))) {
@@ -509,23 +502,23 @@ int check_avoptions_used(const AVDictionary *opts, const AVDictionary *opts_used
 
         if (!(option->flags & flag)) {
             av_log(logctx, AV_LOG_ERROR, "Codec AVOption %s (%s) is not a %s "
-                   "option.\n", e->key, option->help ? option->help : "",
+                                         "option.\n", e->key, option->help ? option->help : "",
                    decode ? "decoding" : "encoding");
             return AVERROR(EINVAL);
         }
 
         av_log(logctx, AV_LOG_WARNING, "Codec AVOption %s (%s) has not been used "
-               "for any stream. The most likely reason is either wrong type "
-               "(e.g. a video option with no video streams) or that it is a "
-               "private option of some decoder which was not actually used "
-               "for any stream.\n", e->key, option->help ? option->help : "");
+                                       "for any stream. The most likely reason is either wrong type "
+                                       "(e.g. a video option with no video streams) or that it is a "
+                                       "private option of some decoder which was not actually used "
+                                       "for any stream.\n", e->key,
+               option->help ? option->help : "");
     }
 
     return 0;
 }
 
-void update_benchmark(const char *fmt, ...)
-{
+void update_benchmark(const char *fmt, ...) {
     if (do_benchmark_all) {
         BenchmarkTimeStamps t = get_benchmark_time_stamps();
         va_list va;
@@ -545,8 +538,7 @@ void update_benchmark(const char *fmt, ...)
     }
 }
 
-static void print_report(int is_last_report, int64_t timer_start, int64_t cur_time, int64_t pts)
-{
+static void print_report(int is_last_report, int64_t timer_start, int64_t cur_time, int64_t pts) {
     AVBPrint buf, buf_script;
     int64_t total_size = of_filesize(output_files[0]);
     int vid;
@@ -574,7 +566,7 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
         last_time = cur_time;
     }
 
-    t = (cur_time-timer_start) / 1000000.0;
+    t = (cur_time - timer_start) / 1000000.0;
 
     vid = 0;
     av_bprint_init(&buf, 0, AV_BPRINT_SIZE_AUTOMATIC);
@@ -593,7 +585,7 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
 
             fps = t > 1 ? frame_number / t : 0;
             av_bprintf(&buf, "frame=%5"PRId64" fps=%3.*f q=%3.1f ",
-                     frame_number, fps < 9.95, fps, q);
+                       frame_number, fps < 9.95, fps, q);
             av_bprintf(&buf_script, "frame=%"PRId64"\n", frame_number);
             av_bprintf(&buf_script, "fps=%.2f\n", fps);
             av_bprintf(&buf_script, "stream_%d_%d_q=%.1f\n",
@@ -602,7 +594,7 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
                 av_bprintf(&buf, "L");
 
             if (ost->filter) {
-                nb_frames_dup  = atomic_load(&ost->filter->nb_frames_dup);
+                nb_frames_dup = atomic_load(&ost->filter->nb_frames_dup);
                 nb_frames_drop = atomic_load(&ost->filter->nb_frames_drop);
             }
 
@@ -617,17 +609,18 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
             pts -= copy_ts_first_pts;
     }
 
-    us    = FFABS64U(pts) % AV_TIME_BASE;
-    secs  = FFABS64U(pts) / AV_TIME_BASE % 60;
-    mins  = FFABS64U(pts) / AV_TIME_BASE / 60 % 60;
+    us = FFABS64U(pts) % AV_TIME_BASE;
+    secs = FFABS64U(pts) / AV_TIME_BASE % 60;
+    mins = FFABS64U(pts) / AV_TIME_BASE / 60 % 60;
     hours = FFABS64U(pts) / AV_TIME_BASE / 3600;
     hours_sign = (pts < 0) ? "-" : "";
 
-    bitrate = pts != AV_NOPTS_VALUE && pts && total_size >= 0 ? total_size * 8 / (pts / 1000.0) : -1;
-    speed   = pts != AV_NOPTS_VALUE && t != 0.0 ? (double)pts / AV_TIME_BASE / t : -1;
+    bitrate =
+            pts != AV_NOPTS_VALUE && pts && total_size >= 0 ? total_size * 8 / (pts / 1000.0) : -1;
+    speed = pts != AV_NOPTS_VALUE && t != 0.0 ? (double) pts / AV_TIME_BASE / t : -1;
 
     if (total_size < 0) av_bprintf(&buf, "size=N/A time=");
-    else                av_bprintf(&buf, "size=%8.0fKiB time=", total_size / 1024.0);
+    else av_bprintf(&buf, "size=%8.0fKiB time=", total_size / 1024.0);
     if (pts == AV_NOPTS_VALUE) {
         av_bprintf(&buf, "N/A ");
     } else {
@@ -638,13 +631,13 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
     if (bitrate < 0) {
         av_bprintf(&buf, "bitrate=N/A");
         av_bprintf(&buf_script, "bitrate=N/A\n");
-    }else{
+    } else {
         av_bprintf(&buf, "bitrate=%6.1fkbits/s", bitrate);
         av_bprintf(&buf_script, "bitrate=%6.1fkbits/s\n", bitrate);
     }
 
     if (total_size < 0) av_bprintf(&buf_script, "total_size=N/A\n");
-    else                av_bprintf(&buf_script, "total_size=%"PRId64"\n", total_size);
+    else av_bprintf(&buf_script, "total_size=%"PRId64"\n", total_size);
     if (pts == AV_NOPTS_VALUE) {
         av_bprintf(&buf_script, "out_time_us=N/A\n");
         av_bprintf(&buf_script, "out_time_ms=N/A\n");
@@ -671,7 +664,7 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
 
     if (print_stats || is_last_report) {
         const char end = is_last_report ? '\n' : '\r';
-        if (print_stats==1 && AV_LOG_INFO > av_log_get_level()) {
+        if (print_stats == 1 && AV_LOG_INFO > av_log_get_level()) {
             fprintf(stderr, "%s    %c", buf.str, end);
         } else
             av_log(NULL, AV_LOG_INFO, "%s    %c", buf.str, end);
@@ -690,15 +683,15 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
         if (is_last_report) {
             if ((ret = avio_closep(&progress_avio)) < 0)
                 av_log(NULL, AV_LOG_ERROR,
-                       "Error closing progress log, loss of information possible: %s\n", av_err2str(ret));
+                       "Error closing progress log, loss of information possible: %s\n",
+                       av_err2str(ret));
         }
     }
 
     first_report = 0;
 }
 
-static void print_stream_maps(void)
-{
+static void print_stream_maps(void) {
     av_log(NULL, AV_LOG_INFO, "Stream mapping:\n");
     for (InputStream *ist = ist_iter(NULL); ist; ist = ist_iter(ist)) {
         for (int j = 0; j < ist->nb_filters; j++) {
@@ -738,16 +731,16 @@ static void print_stream_maps(void)
                ost->file->index,
                ost->index);
         if (ost->enc_ctx) {
-            const AVCodec *in_codec    = ost->ist->dec;
-            const AVCodec *out_codec   = ost->enc_ctx->codec;
-            const char *decoder_name   = "?";
-            const char *in_codec_name  = "?";
-            const char *encoder_name   = "?";
+            const AVCodec *in_codec = ost->ist->dec;
+            const AVCodec *out_codec = ost->enc_ctx->codec;
+            const char *decoder_name = "?";
+            const char *in_codec_name = "?";
+            const char *encoder_name = "?";
             const char *out_codec_name = "?";
             const AVCodecDescriptor *desc;
 
             if (in_codec) {
-                decoder_name  = in_codec->name;
+                decoder_name = in_codec->name;
                 desc = avcodec_descriptor_get(in_codec->id);
                 if (desc)
                     in_codec_name = desc->name;
@@ -756,7 +749,7 @@ static void print_stream_maps(void)
             }
 
             if (out_codec) {
-                encoder_name   = out_codec->name;
+                encoder_name = out_codec->name;
                 desc = avcodec_descriptor_get(out_codec->id);
                 if (desc)
                     out_codec_name = desc->name;
@@ -773,44 +766,42 @@ static void print_stream_maps(void)
     }
 }
 
-static void set_tty_echo(int on)
-{
+static void set_tty_echo(int on) {
 #if HAVE_TERMIOS_H
     struct termios tty;
     if (tcgetattr(0, &tty) == 0) {
         if (on) tty.c_lflag |= ECHO;
-        else    tty.c_lflag &= ~ECHO;
+        else tty.c_lflag &= ~ECHO;
         tcsetattr(0, TCSANOW, &tty);
     }
 #endif
 }
 
-static int check_keyboard_interaction(int64_t cur_time)
-{
+static int check_keyboard_interaction(int64_t cur_time) {
     int i, key;
     static int64_t last_time;
     if (received_nb_signals)
         return AVERROR_EXIT;
     /* read_key() returns 0 on EOF */
     if (cur_time - last_time >= 100000) {
-        key =  read_key();
+        key = read_key();
         last_time = cur_time;
-    }else
+    } else
         key = -1;
     if (key == 'q') {
         av_log(NULL, AV_LOG_INFO, "\n\n[q] command received. Exiting.\n\n");
         return AVERROR_EXIT;
     }
-    if (key == '+') av_log_set_level(av_log_get_level()+10);
-    if (key == '-') av_log_set_level(av_log_get_level()-10);
-    if (key == 'c' || key == 'C'){
+    if (key == '+') av_log_set_level(av_log_get_level() + 10);
+    if (key == '-') av_log_set_level(av_log_get_level() - 10);
+    if (key == 'c' || key == 'C') {
         char buf[4096], target[64], command[256], arg[256] = {0};
         double time;
         int k, n = 0;
         fprintf(stderr, "\nEnter command: <target>|all <time>|-1 <command>[ <argument>]\n");
         i = 0;
         set_tty_echo(1);
-        while ((k = read_key()) != '\n' && k != '\r' && i < sizeof(buf)-1)
+        while ((k = read_key()) != '\n' && k != '\r' && i < sizeof(buf) - 1)
             if (k > 0)
                 buf[i++] = k;
         buf[i] = 0;
@@ -834,7 +825,7 @@ static int check_keyboard_interaction(int64_t cur_time)
                    "only %d given in string '%s'\n", n, buf);
         }
     }
-    if (key == '?'){
+    if (key == '?') {
         fprintf(stderr, "key    function\n"
                         "?      show this help\n"
                         "+      increase verbosity\n"
@@ -852,8 +843,7 @@ static int check_keyboard_interaction(int64_t cur_time)
 /*
  * The following code is the main loop of the file converter
  */
-static int transcode(Scheduler *sch)
-{
+static int transcode(Scheduler *sch) {
     int ret = 0;
     int64_t timer_start, transcode_ts = 0;
 
@@ -872,7 +862,7 @@ static int transcode(Scheduler *sch)
     timer_start = av_gettime_relative();
 
     while (!sch_wait(sch, stats_period, &transcode_ts)) {
-        int64_t cur_time= av_gettime_relative();
+        int64_t cur_time = av_gettime_relative();
 
         /* if 'q' pressed, exits */
         if (stdin_interaction)
@@ -899,17 +889,16 @@ static int transcode(Scheduler *sch)
     return ret;
 }
 
-static BenchmarkTimeStamps get_benchmark_time_stamps(void)
-{
-    BenchmarkTimeStamps time_stamps = { av_gettime_relative() };
+static BenchmarkTimeStamps get_benchmark_time_stamps(void) {
+    BenchmarkTimeStamps time_stamps = {av_gettime_relative()};
 #if HAVE_GETRUSAGE
     struct rusage rusage;
 
     getrusage(RUSAGE_SELF, &rusage);
     time_stamps.user_usec =
-        (rusage.ru_utime.tv_sec * 1000000LL) + rusage.ru_utime.tv_usec;
+            (rusage.ru_utime.tv_sec * 1000000LL) + rusage.ru_utime.tv_usec;
     time_stamps.sys_usec =
-        (rusage.ru_stime.tv_sec * 1000000LL) + rusage.ru_stime.tv_usec;
+            (rusage.ru_stime.tv_sec * 1000000LL) + rusage.ru_stime.tv_usec;
 #elif HAVE_GETPROCESSTIMES
     HANDLE proc;
     FILETIME c, e, k, u;
@@ -925,12 +914,11 @@ static BenchmarkTimeStamps get_benchmark_time_stamps(void)
     return time_stamps;
 }
 
-static int64_t getmaxrss(void)
-{
+static int64_t getmaxrss(void) {
 #if HAVE_GETRUSAGE && HAVE_STRUCT_RUSAGE_RU_MAXRSS
     struct rusage rusage;
     getrusage(RUSAGE_SELF, &rusage);
-    return (int64_t)rusage.ru_maxrss * 1024;
+    return (int64_t) rusage.ru_maxrss * 1024;
 #elif HAVE_GETPROCESSMEMORYINFO
     HANDLE proc;
     PROCESS_MEMORY_COUNTERS memcounters;
@@ -943,8 +931,7 @@ static int64_t getmaxrss(void)
 #endif
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     Scheduler *sch = NULL;
 
     int ret;
@@ -952,7 +939,7 @@ int main(int argc, char **argv)
 
     init_dynload();
 
-    setvbuf(stderr,NULL,_IONBF,0); /* win32 runtime needs this */
+    setvbuf(stderr, NULL, _IONBF, 0); /* win32 runtime needs this */
 
     av_log_set_flags(AV_LOG_SKIP_REPEATED);
     parse_loglevel(argc, argv, options);
@@ -977,7 +964,8 @@ int main(int argc, char **argv)
 
     if (nb_output_files <= 0 && nb_input_files == 0) {
         show_usage();
-        av_log(NULL, AV_LOG_WARNING, "Use -h to get full help or, even better, run 'man %s'\n", program_name);
+        av_log(NULL, AV_LOG_WARNING, "Use -h to get full help or, even better, run 'man %s'\n",
+               program_name);
         ret = 1;
         goto finish;
     }
@@ -994,17 +982,17 @@ int main(int argc, char **argv)
         int64_t utime, stime, rtime;
         current_time = get_benchmark_time_stamps();
         utime = current_time.user_usec - ti.user_usec;
-        stime = current_time.sys_usec  - ti.sys_usec;
+        stime = current_time.sys_usec - ti.sys_usec;
         rtime = current_time.real_usec - ti.real_usec;
         av_log(NULL, AV_LOG_INFO,
                "bench: utime=%0.3fs stime=%0.3fs rtime=%0.3fs\n",
                utime / 1000000.0, stime / 1000000.0, rtime / 1000000.0);
     }
 
-    ret = received_nb_signals                 ? 255 :
-          (ret == FFMPEG_ERROR_RATE_EXCEEDED) ?  69 : ret;
+    ret = received_nb_signals ? 255 :
+          (ret == FFMPEG_ERROR_RATE_EXCEEDED) ? 69 : ret;
 
-finish:
+    finish:
     if (ret == AVERROR_EXIT)
         ret = 0;
 
@@ -1014,3 +1002,16 @@ finish:
 
     return ret;
 }
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+int ffmpeg_main(int argc, char **argv) {
+    return main(argc, argv);
+}
+
+#ifdef __cplusplus
+}
+#endif

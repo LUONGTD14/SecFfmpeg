@@ -1,3 +1,0 @@
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/tranluong/Documents/java_app/SecFfmpeg/app/.cxx/Debug/5w43433w/x86_64

@@ -919,4 +919,5 @@ int view_specifier_parse(const char **pspec, ViewSpecifier *vs);
 int muxer_thread(void *arg);
 int encoder_thread(void *arg);
 
+int ffmpeg_main(int argc, char **argv);
 #endif /* FFTOOLS_FFMPEG_H */

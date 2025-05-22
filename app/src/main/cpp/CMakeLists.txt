@@ -6,7 +6,6 @@ set(ANDROID_STL none)
 #set(CMAKE_HOST_SYSTEM_NAME Windows)
 set(CMAKE_BUILD_TYPE=Release)
 set(ANDROID_ABI arm64-v8a)
-set(triple x86_64-linux-android)
 
 set(CMAKE_TOOLCHAIN_FILE: "/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973/build/cmake")
 
