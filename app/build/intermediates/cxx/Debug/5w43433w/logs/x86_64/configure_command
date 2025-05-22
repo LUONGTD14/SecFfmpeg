@@ -1,0 +1,18 @@
+/Users/tranluong/Library/Android/sdk/cmake/3.22.1/bin/cmake \
+  -H/Users/tranluong/Documents/java_app/SecFfmpeg/app/src/main/cpp \
+  -DCMAKE_SYSTEM_NAME=Android \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DCMAKE_SYSTEM_VERSION=30 \
+  -DANDROID_PLATFORM=android-30 \
+  -DANDROID_ABI=x86_64 \
+  -DCMAKE_ANDROID_ARCH_ABI=x86_64 \
+  -DANDROID_NDK=/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973 \
+  -DCMAKE_ANDROID_NDK=/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973 \
+  -DCMAKE_TOOLCHAIN_FILE=/Users/tranluong/Library/Android/sdk/ndk/27.0.12077973/build/cmake/android.toolchain.cmake \
+  -DCMAKE_MAKE_PROGRAM=/Users/tranluong/Library/Android/sdk/cmake/3.22.1/bin/ninja \
+  -DCMAKE_CXX_FLAGS=-std=c++17 \
+  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/tranluong/Documents/java_app/SecFfmpeg/app/build/intermediates/cxx/Debug/5w43433w/obj/x86_64 \
+  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/tranluong/Documents/java_app/SecFfmpeg/app/build/intermediates/cxx/Debug/5w43433w/obj/x86_64 \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -B/Users/tranluong/Documents/java_app/SecFfmpeg/app/.cxx/Debug/5w43433w/x86_64 \
+  -GNinja
